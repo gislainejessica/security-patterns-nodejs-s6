@@ -1,6 +1,3 @@
-# security-patterns-nodejs-s6
-Padrão de Projeto e Modelo de Segurança em Aplicação NodeJs. Semana 6 do BootCamp GoStack 9
-
 # Conceitos Básicos de padrões de projetos
 - São regras de organização de código
 - As padrões estão em constante evolução, coloque na pratica, pra ver se o padrão lhe serve ou não

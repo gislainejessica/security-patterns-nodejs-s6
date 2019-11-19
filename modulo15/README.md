@@ -46,4 +46,10 @@ Ver videos | Codar | Documentar| Revisar | Desafio
 
 [Provedor de Email - Dev](https://mailtrap.io)
 
+---
+
+### Refatorando o código aplicando padrões de Projeto
+[Refatora](https://github.com/gislainejessica/Course-GoStack-9/tree/master/modulo3/docs/refatorando.md)
+
+
 
