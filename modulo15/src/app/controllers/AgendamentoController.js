@@ -3,7 +3,6 @@ import User from '../models/User'
 import File from '../models/File'
 import Notification from '../schemas/Notifications'
 
-import * as Yup from 'yup'
 import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns'
 import pt from 'date-fns/locale/pt'
 import Queue from '../../lib/Queue'
@@ -37,13 +36,6 @@ class AgendamentoController {
   }
 
   async store(req, res) {
-    const schema = Yup.object().shape({
-      provider_id: Yup.number().required(),
-      date: Yup.date().required(),
-    })
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Erro de validação' })
-    }
     const { provider_id, date } = req.body
     // Verificar se provider é valido
     const isProvider = await User.findOne({
@@ -117,7 +109,6 @@ class AgendamentoController {
 
     // Verificar se usuario é o 'dono' do agendamento
     if (req.user_id !== agendamento.user_id) {
-      console.log(agendamento.user_id, '_', req.params.id)
       return res.status(401).json({
         error: 'Você não tem permissão para cancelar esse agendamento',
       })
