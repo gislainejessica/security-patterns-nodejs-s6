@@ -5,6 +5,7 @@ import Agendamento from '../models/Agendamento'
 import User from '../models/User'
 
 import Cancellation from '../jobs/CancellationMail'
+import Cache from '../../lib/Cache'
 
 class CancelAgendamentoService {
   async run({ provider_id, user_id }){
@@ -37,6 +38,10 @@ class CancelAgendamentoService {
     agendamento.canceled_at = new Date()  
     await agendamento.save()
     await Queue.add(Cancellation.key, { agendamento })
+    /**
+     * INVALIDATE CACHE
+     */
+    await Cache.invalidatePrefix(`user:${user_id}:agendamentos`)
 
     return agendamento
   }

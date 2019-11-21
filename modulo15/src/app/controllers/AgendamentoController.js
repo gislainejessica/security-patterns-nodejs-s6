@@ -5,9 +5,19 @@ import File from '../models/File'
 import CreateAgendamentoService from '../services/CreateAgendamentoService'
 import CancelAgendamentoService from '../services/CancelAgendamentoService'
 
+import Cache from '../../lib/Cache'
+
 class AgendamentoController {
   async index(req, res) {
     const { page = 1 } = req.query
+
+    const cacheKey = `user:${req.user_id}:agendamentos:${page}`
+    const cached = await Cache.get(cacheKey)
+    
+    if (cached){
+      return res.json(cached)
+    }
+
     const agendamentos = await Agendamento.findAll({
       where: { user_id: req.user_id, canceled_at: null },
       order: ['date'],
@@ -29,6 +39,9 @@ class AgendamentoController {
         },
       ],
     })
+
+    await Cache.set(cacheKey, agendamentos)
+
     return res.json(agendamentos)
   }
 

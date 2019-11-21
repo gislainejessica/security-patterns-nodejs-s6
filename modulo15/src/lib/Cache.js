@@ -24,6 +24,13 @@ class Cache {
     return this.redis.del(key)
   }
   
+  async invalidatePrefix(prefix){
+    const keys = await this.redis.keys(`cache:${prefix}:*`)
+
+    const keysSemPrefix = keys.map(key => key.replace('cache:', ''))
+
+    return this.redis.del(keysSemPrefix)
+  }
 }
 
 export default new Cache()
