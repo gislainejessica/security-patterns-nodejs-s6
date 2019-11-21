@@ -1,6 +1,8 @@
 import User from '../models/User'
 import File from '../models/File'
 
+import Cache from '../../lib/Cache'
+
 class UserController {
   async store(req, res) {
     // Verificar se usuario existe
@@ -9,6 +11,11 @@ class UserController {
       return res.status(400).json({ error: 'email já está cadastrado' })
     }
     const { id, provider, name, email } = await User.create(req.body)
+    
+    if (provider) {
+      await Cache.invalidate('o-providers')
+    }
+    
     // Retornar apenas os dados necessarios para o frontend
     return res.json({
       id,

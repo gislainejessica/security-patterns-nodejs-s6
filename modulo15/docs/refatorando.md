@@ -11,3 +11,20 @@
 - 2 Instalar biblioteca para lidar com cache
   - `yarn add ioredis`
 - 3 Construir a classe de cache que vai manipular operações de cacheamento
+
+- 4 Usar o cache para armazenar prestadores de serviços 
+  - Importar a Cache.js criado anteriormente
+    ```js
+      import Cache from '../../lib/Cache'
+    ```
+  - Antes de retorna a lista de prestadores, salvar lista no cache
+    ```js
+      await Cache.set('providers', providers)
+    ```
+  - Criar uma lógica no inicio do Controller para verificar se info já está em cache, se sim retorna essa info do cache diretamente.
+    ```js
+      const cached = Cache.get('providers')
+      if (cached){
+        return cached
+      }
+    ```
