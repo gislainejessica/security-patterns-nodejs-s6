@@ -4,9 +4,11 @@ import cors from 'cors'
 import 'express-async-errors'
 import routes from './routes'
 import path from 'path'
+
 import Youch from 'youch'
 import * as Sentry from '@sentry/node'
 import sentryConfig from './config/sentry'
+
 import './database'
 
 class App {

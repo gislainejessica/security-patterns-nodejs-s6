@@ -13,8 +13,6 @@ import validateUserUpdate from './app/validators/UserUpdate'
 import validateSessionStore from './app/validators/SessionStore'
 import validateAgendamentoStore from './app/validators/AgendamentoStore'
 
-
-
 import authMidlle from './app/middlewares/auth'
 
 import multer from 'multer'
